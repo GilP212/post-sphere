@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs'; //  Observables package
+import { HttpClient } from '@angular/common/http';
 
 import { Post } from './post.model';
 
@@ -8,8 +9,14 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
 
+  constructor(private http: HttpClient) {}
+
   getPosts() {
-    return [...this.posts]; //  square brackets here, to return a new copied array and not ref.
+    this.http.get<{message: string, posts: Post[]}>('http://localhost:3000/api/posts')
+      .subscribe((postData) => {  //  unsubscribe handled by Angular, no need for ngOnDestroy
+        this.posts = postData.posts;
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 
   getPostUpdateListener() {
@@ -17,8 +24,12 @@ export class PostsService {
   }
 
   addPost(title: string, content: string) {
-    const post: Post = {title, content};
-    this.posts.push(post);
-    this.postsUpdated.next([...this.posts]);
+    const post: Post = {id: '', title, content};
+    this.http.post<{message: string}>('http://localhost:3000/api/posts', post)
+      .subscribe(responseData => {
+        console.log(responseData.message);
+        this.posts.push(post);
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 }
