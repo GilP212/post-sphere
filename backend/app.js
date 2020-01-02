@@ -1,7 +1,8 @@
 const express    = require("express"),
       app        = express(),
       bodyParser = require("body-parser"),
-      mongoose   = require("mongoose");
+      mongoose   = require("mongoose"),
+      path       = require('path');
 
 const postRoutes = require("./routes/posts");
 
@@ -19,6 +20,7 @@ mongoose.connect("mongodb+srv://dagil123:gilp7466@cluster0-ox8cv.mongodb.net/pos
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join('backend/images')));
 
 //CORS Headers
 app.use((req, res, next) => {
