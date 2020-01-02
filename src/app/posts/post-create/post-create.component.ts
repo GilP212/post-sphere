@@ -11,10 +11,9 @@ import { Post } from '../post.model';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
-  enteredContent = '';
-  enteredTitle = '';
   post: Post;
   form: FormGroup;
+  imagePreview: string;
   isLoading = false;
   private mode = 'create';
   private postId: string;
@@ -77,6 +76,12 @@ export class PostCreateComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({image: file});
     this.form.get('image').updateValueAndValidity();
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = (reader.result as string);
+    };
+    reader.readAsDataURL(file);
   }
 
   onSavePost() {
