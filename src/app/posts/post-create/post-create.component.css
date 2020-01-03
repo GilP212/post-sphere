@@ -7,8 +7,14 @@ mat-spinner {
 }
 
 .image-preview {
+  width: 100%;
   height: 5rem;
   margin: 1rem 0;
+}
+
+.image-preview img {
+  width: 100%;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
 input[type="file"] {
