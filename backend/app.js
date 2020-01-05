@@ -4,7 +4,8 @@ const express    = require("express"),
       mongoose   = require("mongoose"),
       path       = require('path');
 
-const postRoutes = require("./routes/posts");
+const postRoutes = require("./routes/posts"),
+      userRoutes = require("./routes/users");
 
 //DB SETUP
 mongoose.set('useNewUrlParser', true);
@@ -38,5 +39,6 @@ app.use((req, res, next) => {
 
 //ROUTES
 app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
 
 module.exports = app;
