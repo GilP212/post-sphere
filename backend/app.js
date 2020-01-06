@@ -10,14 +10,17 @@ const postRoutes = require("./routes/posts"),
 //DB SETUP
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
+mongoose.set('useCreateIndex', true);
 
-mongoose.connect("mongodb+srv://dagil123:gilp7466@cluster0-ox8cv.mongodb.net/post-sphere?retryWrites=true&w=majority")
-.then(() => {
-  console.log('Connected to DB!');
-})
-.catch(() => {
-  console.log('Connection to DB failed!');
-});
+mongoose
+  .connect("mongodb+srv://dagil123:gilp7466@cluster0-ox8cv.mongodb.net/post-sphere?retryWrites=true&w=majority")
+  .then(() => {
+    console.log('Connected to DB!');
+  })
+  .catch(() => {
+    console.log('Connection to DB failed!');
+  }
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
