@@ -32,6 +32,7 @@
       </mat-error>
     </mat-form-field>
     <button
+      *ngIf="!isLoading"
       mat-raised-button
       color="primary"
       type="submit">
