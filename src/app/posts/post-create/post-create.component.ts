@@ -22,7 +22,7 @@ export class PostCreateComponent implements OnInit {
   constructor(
     public postsService: PostsService,
     public route: ActivatedRoute
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -33,7 +33,7 @@ export class PostCreateComponent implements OnInit {
             Validators.minLength(3)
           ]
         }
-        ),
+      ),
       content: new FormControl(null,
         {
           validators: [
@@ -41,7 +41,7 @@ export class PostCreateComponent implements OnInit {
             Validators.minLength(3)
           ]
         }
-        ),
+      ),
       image: new FormControl(null,
         {
           validators: [Validators.required],
@@ -49,6 +49,7 @@ export class PostCreateComponent implements OnInit {
         }
       )
     });
+
     this.route.paramMap
       .subscribe((paramMap: ParamMap) => {
         if (paramMap.has('postId')) {
