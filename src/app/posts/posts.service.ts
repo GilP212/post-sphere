@@ -27,15 +27,20 @@ export class PostsService {
               title: post.title,
               content: post.content,
               id: post._id,
-              imagePath: post.imagePath
+              imagePath: post.imagePath,
+              creator: post.creator
             };
           }),
           maxPosts: postData.maxPosts
         };
       }))
       .subscribe(transformedPostsData => {  //  unsubscribe handled by Angular, no need for ngOnDestroy
+        console.log(transformedPostsData);
         this.posts = transformedPostsData.posts;
-        this.postsUpdated.next({posts: [...this.posts], postCount: transformedPostsData.maxPosts});
+        this.postsUpdated.next({
+            posts: [...this.posts],
+            postCount: transformedPostsData.maxPosts
+        });
       });
   }
 
