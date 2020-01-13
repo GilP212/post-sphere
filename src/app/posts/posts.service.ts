@@ -35,7 +35,6 @@ export class PostsService {
         };
       }))
       .subscribe(transformedPostsData => {  //  unsubscribe handled by Angular, no need for ngOnDestroy
-        console.log(transformedPostsData);
         this.posts = transformedPostsData.posts;
         this.postsUpdated.next({
             posts: [...this.posts],
