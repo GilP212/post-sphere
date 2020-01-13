@@ -13,7 +13,7 @@ mongoose.set('useUnifiedTopology', true);
 mongoose.set('useCreateIndex', true);
 
 mongoose
-  .connect("mongodb+srv://dagil123:gilp7466@cluster0-ox8cv.mongodb.net/post-sphere?retryWrites=true&w=majority")
+  .connect("mongodb+srv://dagil123:" + process.env.MONGO_ATLAS_PW + "@cluster0-ox8cv.mongodb.net/post-sphere?retryWrites=true&w=majority")
   .then(() => {
     console.log('Connected to DB!');
   })
