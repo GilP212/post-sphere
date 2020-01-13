@@ -29,6 +29,7 @@ const storage = multer.diskStorage({
         }
       });
 
+// CREATE
 router.post(
   "",
   checkAuth,
@@ -52,6 +53,11 @@ router.post(
           content: createdPost.content,
           imagePath: createdPost.imagePath
         }
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Failed to create post!'
       });
     });
 });
@@ -87,11 +93,16 @@ router.put(
             message: "Not authorized!"
           });
         }
-
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Could not update post!'
+        });
       });
   }
 );
 
+// INDEX - Get all posts.
 router.get("", (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
@@ -115,9 +126,15 @@ router.get("", (req, res, next) => {
         posts: fetchedPosts,
         maxPosts: count
       });
+    })
+    .then(error => {
+      res.status(500).json({
+        message: 'Fetching posts failed!'
+      });
     });
 });
 
+// SHOW
 router.get("/:id", (req, res, next) => {
   Post
     .findById(req.params.id)
@@ -129,6 +146,11 @@ router.get("/:id", (req, res, next) => {
           message: "Post not found!"
         });
       }
+    })
+    .then(error => {
+      res.status(500).json({
+        message: 'Fetching post failed!'
+      });
     });
 });
 
@@ -148,6 +170,11 @@ router.delete(
             message: "Not authorized!"
           });
         }
+      })
+      .then(error => {
+        res.status(500).json({
+          message: 'Deleting post failed!'
+        });
       });
   }
 );
